@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Implementation of four common sorting algorithms with explanations">
+    <title>Four Sorting Algorithms</title>
+    <!-- Google Fonts with specific weights -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* Main Content Styles */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .algorithm {
+            background-color: #fff;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-weight: 600;
+        }
+
+        /* Code Block Styles */
+        pre {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        code {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #612338; /* SFSU Purple */
+            color: #FDB515; /* SFSU Gold */
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            border-radius: 8px;
+        }
+
+        footer p {
+            margin: 0;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .algorithm {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Four Sorting Algorithms</h1>
+    </header>
+
+    <main>
+        <!-- Insertion Sort Section -->
+        <div id="insertion-sort" class="algorithm">
+            <h2>Insertion Sort</h2>
+            <p>
+                Insertion sort is a simple sorting algorithm that builds the sorted
+                array one item at a time. It has a time complexity of O(n&sup2;) &rarr; O(n) 
+                for best case. It is much like sorting playing cards in your hands.
+            </p>
+            <pre><code class="language-javascript">// Insertion Sort Implementation
+function insertionSort(arr) {
+    for (let i = 1; i < arr.length; i++) {
+        let key = arr[i];
+        let j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+    return arr;
+}</code></pre>
+        </div>
+
+        <!-- Bubble Sort Section -->
+        <div id="bubble-sort" class="algorithm">
+            <h2>Bubble Sort</h2>
+            <p>
+                Bubble sort is a simple sorting algorithm that repeatedly steps through the input list 
+                &amp; compares adjacent elements. It swaps them if they are in the wrong order 
+                (&forall; elements where a[i] &gt; a[i+1]). Time complexity: O(n&sup2;).
+            </p>
+            <pre><code class="language-javascript">// Bubble Sort Implementation
+function bubbleSort(arr) {
+    let len = arr.length;
+    for (let i = 0; i < len; i++) {
+        for (let j = 0; j < len - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // Swap elements
+                let temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+    return arr;
+}</code></pre>
+        </div>
+
+        <!-- Selection Sort Section -->
+        <div id="selection-sort" class="algorithm">
+            <h2>Selection Sort</h2>
+            <p>
+                Selection sort divides the input list into sorted &amp; unsorted regions. 
+                It finds min(unsorted region) &rarr; moves it to the sorted region. 
+                Time complexity: &Omega;(n&sup2;) in all cases, making it inefficient for large lists.
+            </p>
+            <pre><code class="language-javascript">// Selection Sort Implementation
+function selectionSort(arr) {
+    let len = arr.length;
+    for (let i = 0; i < len - 1; i++) {
+        let minIdx = i;
+        for (let j = i + 1; j < len; j++) {
+            if (arr[j] < arr[minIdx]) {
+                minIdx = j;
+            }
+        }
+        if (minIdx !== i) {
+            // Swap elements
+            let temp = arr[i];
+            arr[i] = arr[minIdx];
+            arr[minIdx] = temp;
+        }
+    }
+    return arr;
+}</code></pre>
+        </div>
+
+        <!-- Merge Sort Section -->
+        <div id="merge-sort" class="algorithm">
+            <h2>Merge Sort</h2>
+            <p>
+                Merge sort is an efficient, stable algorithm using divide-and-conquer strategy. 
+                Process: array &rarr; split &rarr; sort &rarr; merge. Time complexity: O(n&middot;log n) 
+                &forall; cases, making it more efficient than O(n&sup2;) algorithms.
+            </p>
+            <pre><code class="language-javascript">// Merge Sort Implementation
+function mergeSort(arr) {
+    if (arr.length <= 1) return arr;
+
+    const mid = Math.floor(arr.length / 2);
+    const left = arr.slice(0, mid);
+    const right = arr.slice(mid);
+
+    return merge(mergeSort(left), mergeSort(right));
+}
+
+function merge(left, right) {
+    let result = [];
+    let leftIndex = 0;
+    let rightIndex = 0;
+
+    while (leftIndex < left.length && rightIndex < right.length) {
+        if (left[leftIndex] < right[rightIndex]) {
+            result.push(left[leftIndex]);
+            leftIndex++;
+        } else {
+            result.push(right[rightIndex]);
+            rightIndex++;
+        }
+    }
+
+    return result
+        .concat(left.slice(leftIndex))
+        .concat(right.slice(rightIndex));
+}</code></pre>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Sorting Algorithms Implementation</p>
+    </footer>
+</body>
+</html>
